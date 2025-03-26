@@ -1,22 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import type { RequestStatus } from '@/types'
-
-export interface Filters {
-  name?: string
-  sortBy?: string
-  colors?: string[]
-  types?: string[]
-  subtypes?: string[]
-  rarities?: string[]
-  keywords?: string[]
-  artists?: string[]
-  treatments?: string[]
-  setIds?: number[]
-}
+import type { FilterData } from '@/views/SearchView/components/SearchFilters/zodSchema'
 
 export interface SearchSliceState {
-  filters: Filters
+  filters: FilterData
   status: RequestStatus
 }
 
@@ -30,16 +18,20 @@ export const searchSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    setFilters: (state, { payload }: PayloadAction<Filters>) => {
+    setFilters: (state, { payload }: PayloadAction<FilterData>) => {
       state.filters = payload
+    },
+    setPage: (state, { payload }: PayloadAction<number>) => {
+      state.filters.page = payload
     },
   },
   extraReducers: (builder) => {},
   selectors: {
+    selectFilters: (state) => state.filters,
     selectSearchStatus: (state) => state.status,
   },
 })
 
-export const { reset, setFilters } = searchSlice.actions
+export const { reset, setFilters, setPage } = searchSlice.actions
 
-export const { selectSearchStatus } = searchSlice.selectors
+export const { selectFilters, selectSearchStatus } = searchSlice.selectors

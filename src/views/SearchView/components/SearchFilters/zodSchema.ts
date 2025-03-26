@@ -13,6 +13,10 @@ export const filtersSchema = z.object({
   artists: z.array(selectOptionValidation).optional(),
   treatments: z.array(selectOptionValidation).optional(),
   setIds: z.array(selectOptionValidation).optional(),
+  page: z.coerce.number().optional(),
+  resultsPerPage: z.coerce.number().optional(),
+  sortField: z.string().optional(),
+  sortDir: z.string().optional(),
 })
 
 export type FilterData = z.infer<typeof filtersSchema>

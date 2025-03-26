@@ -26,6 +26,7 @@ export enum ENVIRONMENTS {
 
 export const COOKIES_DAYS_TO_EXPIRE = 7
 
+export const RESULTS_PER_PAGE = 20
 export const EMPTY_VALUE = '--'
 export const TOAST_CONTAINER = 'toast-root'
 export const TWITTER_DATA = {

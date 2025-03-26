@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   applicationName: APP_NAME,
   creator: 'nanodev94',
   title: APP_NAME,
-  description: 'Track you Magic The Gathering collection',
+  description: 'Track your Magic The Gathering collection',
 }
 
 interface Props {

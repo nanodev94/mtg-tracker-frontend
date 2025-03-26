@@ -25,7 +25,7 @@ const CardItem = ({ cardId, name, setId, setNumber, types }: Props) => {
 
   return (
     <Link href={`${PAGE.SEARCH}/${cardId}`}>
-      <div className='w-60 aspect-5/7 bg-green-800 w-full rounded-lg'>
+      <div className='w-full aspect-5/7 rounded-xl bg-green-700'>
         <CldImage
           alt={name}
           className='w-full'

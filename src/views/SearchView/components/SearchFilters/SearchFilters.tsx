@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Select from '@/components/Select'
+import { RESULTS_PER_PAGE } from '@/constants'
 import { ARTISTS } from '@/constants/cardData/artists'
 import { COLORS } from '@/constants/cardData/colors'
 import { KEYWORDS } from '@/constants/cardData/keywords'
@@ -15,8 +16,10 @@ import { SUBTYPES } from '@/constants/cardData/subtypes'
 import { TREATMENTS } from '@/constants/cardData/treatments'
 import { TYPES } from '@/constants/cardData/types'
 import { getCards } from '@/domain/cards'
-import { useAppDispatch } from '@/globalHooks/redux'
-import { type Filters, setFilters } from '@/redux/slices/searchSlice'
+import type { GetCardsQueryParams } from '@/domain/cards/dtos/getCards.dto'
+import { useAppDispatch, useAppSelector } from '@/globalHooks/redux'
+import { reset as resetCards } from '@/redux/slices/cardSlice'
+import { selectFilters, setFilters } from '@/redux/slices/searchSlice'
 import { generateOptions } from '@/utils/select'
 
 import { type FilterData, filtersSchema } from './zodSchema'
@@ -24,6 +27,7 @@ import { type FilterData, filtersSchema } from './zodSchema'
 const SearchFilters = () => {
   const dispatch = useAppDispatch()
   const locale = useLocale()
+  const reduxFilters = useAppSelector(selectFilters)
 
   const t = useTranslations('search.filters')
   const tColors = useTranslations('cardData.colors')
@@ -40,23 +44,37 @@ const SearchFilters = () => {
     formState: { errors },
   } = useForm<FilterData>({
     resolver: zodResolver(filtersSchema),
+    defaultValues: { ...reduxFilters },
   })
 
   const onSubmit = (data: FilterData) => {
-    const filters: Filters = {
+    const pagination = {
+      page: 0,
+      resultsPerPage: RESULTS_PER_PAGE,
+      sortField: data.sortBy?.value,
+      sortDir: 'ASC',
+    }
+
+    const filters: GetCardsQueryParams = {
+      ...pagination,
       name: data.name !== '' ? data.name : undefined,
-      sortBy: data.sortBy?.value,
-      colors: data.colors?.map((color) => color.value),
-      types: data.types?.map((type) => type.value),
-      subtypes: data.subtypes?.map((subtype) => subtype.value),
-      rarities: data.rarities?.map((rarity) => rarity.value),
-      keywords: data.keywords?.map((keyword) => keyword.value),
-      artists: data.artists?.map((artist) => artist.value),
-      treatments: data.treatments?.map((treatment) => treatment.value),
+      colors: data.colors?.map((option) => option.value),
+      types: data.types?.map((option) => option.value),
+      subtypes: data.subtypes?.map((option) => option.value),
+      rarities: data.rarities?.map((option) => option.value),
+      keywords: data.keywords?.map((option) => option.value),
+      artists: data.artists?.map((option) => option.value),
+      treatments: data.treatments?.map((option) => option.value),
       setIds: data.setIds?.map((setId) => parseInt(setId.value)),
     }
 
-    dispatch(setFilters(filters))
+    dispatch(resetCards())
+    dispatch(
+      setFilters({
+        ...pagination,
+        ...data,
+      })
+    )
     dispatch(getCards.initiate({ locale, params: filters }))
   }
 
@@ -82,7 +100,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='colors'
-          options={generateOptions([...COLORS], tColors)}
+          options={generateOptions([...COLORS], tColors, true)}
         />
         <span>{t('types')}</span>
         <Select
@@ -90,7 +108,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='types'
-          options={generateOptions([...TYPES], tTypes)}
+          options={generateOptions([...TYPES], tTypes, true)}
         />
         <span>{t('subtypes')}</span>
         <Select
@@ -98,7 +116,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='subtypes'
-          options={generateOptions([...SUBTYPES], tSubtypes)}
+          options={generateOptions([...SUBTYPES], tSubtypes, true)}
         />
         <span>{t('rarities')}</span>
         <Select
@@ -106,7 +124,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='rarities'
-          options={generateOptions([...RARITIES], tRarities)}
+          options={generateOptions([...RARITIES], tRarities, true)}
         />
         <span>{t('keywords')}</span>
         <Select
@@ -114,7 +132,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='keywords'
-          options={generateOptions([...KEYWORDS], tKeywords)}
+          options={generateOptions([...KEYWORDS], tKeywords, true)}
         />
         <span>{t('artists')}</span>
         <Select
@@ -122,7 +140,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='artists'
-          options={generateOptions([...ARTISTS])}
+          options={generateOptions([...ARTISTS], undefined, true)}
         />
         <span>{t('treatments')}</span>
         <Select
@@ -130,7 +148,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='treatments'
-          options={generateOptions([...TREATMENTS], tTreatments)}
+          options={generateOptions([...TREATMENTS], tTreatments, true)}
         />
         <span>{t('sets')}</span>
         <Select
