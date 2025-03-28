@@ -1,11 +1,14 @@
+import CardDetailsView from '@/views/CardDetailsView'
+
 interface Props {
-  params: {
+  params: Promise<{
     cardId: string
-  }
+  }>
 }
 
-const CardInfo = ({ params }: Props) => {
-  return <span>CardInfo {params.cardId}</span>
+const CardDetails = async ({ params }: Props) => {
+  const { cardId } = await params
+  return <CardDetailsView cardId={parseInt(cardId)} />
 }
 
-export default CardInfo
+export default CardDetails

@@ -15,8 +15,18 @@
 }
 
 @theme {
-  --color-green: rgb(0, 255, 0);
   --color-blue: rgb(0, 0, 255);
+  --color-green: rgb(0, 255, 0);
+  --color-mana-colorless: rgb(119, 119, 119);
+  --color-mana-black: rgb(119, 119, 119);
+  --color-mana-white: rgb(225, 255, 0);
+  --color-mana-red: rgb(212, 0, 0);
+  --color-mana-blue: rgb(25, 125, 255);
+  --color-mana-green: rgb(0, 176, 47);
+  --color-rarity-common: rgb(0, 0, 0);
+  --color-rarity-uncommon: rgb(148, 148, 148);
+  --color-rarity-rare: rgb(255, 221, 0);
+  --color-rarity-mythic: rgb(255, 51, 0);
 }
 
 body {

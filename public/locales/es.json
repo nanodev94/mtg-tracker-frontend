@@ -3,6 +3,24 @@
     "search": "BUSCADOR",
     "sets": "COLECCIONES"
   },
+  "cardDetails": {
+    "alternatives": "Alternativas",
+    "artist": "Artista:",
+    "defense": "Defensa:",
+    "description": "Descripción:",
+    "keywords": "Palabras clave:",
+    "lore": "Lore:",
+    "loyalty": "Loyalty:",
+    "mana": "Mana:",
+    "name": "Nombre:",
+    "power": "Fuerza:",
+    "set": "Colección:",
+    "setNumber": "Número de colección:",
+    "rarity": "Rareza:",
+    "subtypes": "Subtipos:",
+    "treatments": "Tratamientos:",
+    "types": "Tipos:"
+  },
   "search": {
     "filters": {
       "title": "Filtros",

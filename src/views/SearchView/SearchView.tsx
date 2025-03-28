@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useLocale } from 'next-intl'
 
+import CardImage from '@/components/CardImage'
 import { getCards } from '@/domain/cards'
 import type { GetCardsQueryParams } from '@/domain/cards/dtos/getCards.dto'
 import { useAppDispatch, useAppSelector } from '@/globalHooks/redux'
@@ -14,7 +15,6 @@ import {
 } from '@/redux/slices/cardSlice'
 import { selectFilters, setPage } from '@/redux/slices/searchSlice'
 
-import CardItem from './components/CardItem'
 import SearchFilters from './components/SearchFilters'
 
 const SearchView = () => {
@@ -62,14 +62,7 @@ const SearchView = () => {
       </div>
       <div className='flex-4/5 w-full h-fit gap-6 pl-6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
         {cards.map((card) => (
-          <CardItem
-            cardId={card.id}
-            key={card.id}
-            name={card.name}
-            setId={card.setId}
-            setNumber={card.setNumber}
-            types={card.types}
-          />
+          <CardImage cardId={card.id} isLink key={card.id} />
         ))}
         <div ref={ref} />
       </div>

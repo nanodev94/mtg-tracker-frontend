@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { RESULTS_PER_PAGE } from '@/constants'
 import type { Card } from '@/domain/@types'
-import { getCards } from '@/domain/cards'
+import { getCard, getCards } from '@/domain/cards'
 
 export interface CardSliceState {
   cards: Card[]
@@ -45,9 +45,22 @@ export const cardSlice = createSlice({
       .addMatcher(getCards.matchRejected, (state) => {
         state.status = 'failed'
       })
+      .addMatcher(getCard.matchFulfilled, (state, { payload }) => {
+        state.status = 'idle'
+        state.count += 1
+        state.cards.push(payload)
+      })
+      .addMatcher(getCard.matchPending, (state) => {
+        state.status = 'loading'
+      })
+      .addMatcher(getCard.matchRejected, (state) => {
+        state.status = 'failed'
+      })
   },
   selectors: {
     selectCards: (state) => state.cards,
+    selectCardById: (state, id: number) =>
+      state.cards.find((card) => card.id === id),
     selectCardsEndReached: (state) => state.endReached,
     selectCardsStatus: (state) => state.status,
   },
@@ -55,5 +68,9 @@ export const cardSlice = createSlice({
 
 export const { reset } = cardSlice.actions
 
-export const { selectCards, selectCardsEndReached, selectCardsStatus } =
-  cardSlice.selectors
+export const {
+  selectCards,
+  selectCardById,
+  selectCardsEndReached,
+  selectCardsStatus,
+} = cardSlice.selectors

@@ -3,6 +3,24 @@
     "search": "SEARCH",
     "sets": "SETS"
   },
+  "cardDetails": {
+    "alternatives": "Alternatives",
+    "artist": "Artist:",
+    "defense": "Defense:",
+    "description": "Description:",
+    "keywords": "Keywords:",
+    "lore": "Lore:",
+    "loyalty": "Loyalty:",
+    "mana": "Mana:",
+    "name": "Name:",
+    "power": "Power:",
+    "set": "Set:",
+    "setNumber": "Set number:",
+    "rarity": "Rarity:",
+    "subtypes": "Subtypes:",
+    "treatments": "Treatments:",
+    "types": "Types:"
+  },
   "search": {
     "filters": {
       "title": "Filters",
