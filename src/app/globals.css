@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@theme {
+  --color-blue: rgb(0, 0, 255);
+  --color-green: rgb(0, 255, 0);
+  --color-mana-colorless: rgb(119, 119, 119);
+  --color-mana-black: rgb(119, 119, 119);
+  --color-mana-white: rgb(225, 255, 0);
+  --color-mana-red: rgb(212, 0, 0);
+  --color-mana-blue: rgb(25, 125, 255);
+  --color-mana-green: rgb(0, 176, 47);
+  --color-rarity-common: rgb(0, 0, 0);
+  --color-rarity-uncommon: rgb(148, 148, 148);
+  --color-rarity-rare: rgb(255, 221, 0);
+  --color-rarity-mythic: rgb(255, 51, 0);
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
