@@ -17,6 +17,7 @@
 @theme {
   --color-blue: rgb(0, 0, 255);
   --color-green: rgb(0, 255, 0);
+  --color-land: rgb(152, 56, 1);
   --color-mana-colorless: rgb(119, 119, 119);
   --color-mana-black: rgb(119, 119, 119);
   --color-mana-white: rgb(225, 255, 0);

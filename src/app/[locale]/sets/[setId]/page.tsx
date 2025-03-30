@@ -1,11 +1,14 @@
+import SetDetailsView from '@/views/SetDetailsView'
+
 interface Props {
-  params: {
+  params: Promise<{
     setId: string
-  }
+  }>
 }
 
-const SetInfo = ({ params }: Props) => {
-  return <span>SetInfo {params.setId}</span>
+const SetInfo = async ({ params }: Props) => {
+  const { setId } = await params
+  return <SetDetailsView setId={parseInt(setId)} />
 }
 
 export default SetInfo

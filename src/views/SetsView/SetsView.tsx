@@ -10,12 +10,7 @@ const SetsView = () => {
   return (
     <div className='p-12 grid grid-cols-4'>
       {sets.map((set) => (
-        <SetLogo
-          key={set.id}
-          setCode={set.code}
-          setId={set.id}
-          setName={set.name}
-        />
+        <SetLogo hasHoverEffect key={set.id} set={set} />
       ))}
     </div>
   )
