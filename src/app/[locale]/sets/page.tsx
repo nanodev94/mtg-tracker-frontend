@@ -1,5 +1,7 @@
+import SetsView from '@/views/SetsView'
+
 const Sets = () => {
-  return <span>Sets</span>
+  return <SetsView />
 }
 
 export default Sets
