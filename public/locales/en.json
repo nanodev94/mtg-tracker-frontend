@@ -37,6 +37,15 @@
       "apply": "Apply"
     }
   },
+  "setDetails": {
+    "code": "Code:",
+    "name": "Name:",
+    "releasedAt": "Released at:",
+    "arts": "Arts:",
+    "tokens": "Tokens:",
+    "total": "Cards:",
+    "extra": "Extra cards:"
+  },
   "cardData": {
     "colors": {
       "WHITE": "White",

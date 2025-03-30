@@ -37,6 +37,15 @@
       "apply": "Aplicar"
     }
   },
+  "setDetails": {
+    "code": "Código:",
+    "name": "Nombre:",
+    "releasedAt": "Fecha de lanzamiento:",
+    "arts": "Artes:",
+    "tokens": "Tokens:",
+    "total": "Cartas:",
+    "extra": "Cartas extra:"
+  },
   "cardData": {
     "colors": {
       "WHITE": "Blanco",
