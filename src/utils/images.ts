@@ -13,3 +13,14 @@ export const getImageUrl = (
   // folder/img
   return `${imageUrl}/${setCode}${setNumber.toString().padStart(4, '0')}`
 }
+
+export const getSetUrl = (setCode: string) => {
+  // folder
+  const setUrl = `${process.env.NEXT_PUBLIC_CLOUDINARY_BASE}/${setCode}`
+
+  // folder/logo
+  return {
+    symbol: `${setUrl}/${setCode}_logo_symbol`,
+    name: `${setUrl}/${setCode}_logo_name`,
+  }
+}
