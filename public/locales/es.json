@@ -108,6 +108,10 @@
       "RARE": "Rara",
       "MYTHIC": "Mítica"
     },
+    "sets": {
+      "ACR": "Universes Beyond: Assassin's Creed",
+      "DSK": "Duskmourn"
+    },
     "subtypes": {
       "ASSASSIN": "Asesino",
       "AURA": "Aura",

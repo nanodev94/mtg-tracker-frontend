@@ -20,7 +20,7 @@ export const getSetUrl = (setCode: string) => {
 
   // folder/logo
   return {
-    symbol: `${setUrl}/${setCode}_logo_symbol`,
-    name: `${setUrl}/${setCode}_logo_name`,
+    symbol: `${setUrl}/${setCode}Logo_symbol`,
+    name: `${setUrl}/${setCode}Logo_name`,
   }
 }

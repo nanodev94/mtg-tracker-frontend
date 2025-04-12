@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocale, useTranslations } from 'next-intl'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -8,19 +9,26 @@ import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Select from '@/components/Select'
 import { RESULTS_PER_PAGE } from '@/constants'
-import { ARTISTS } from '@/constants/cardData/artists'
-import { COLORS } from '@/constants/cardData/colors'
-import { KEYWORDS } from '@/constants/cardData/keywords'
-import { RARITIES } from '@/constants/cardData/rarities'
-import { SUBTYPES } from '@/constants/cardData/subtypes'
-import { TREATMENTS } from '@/constants/cardData/treatments'
-import { TYPES } from '@/constants/cardData/types'
-import { getCards } from '@/domain/cards'
+import { COLORS, RARITIES } from '@/constants/cardData'
+import {
+  getArtists,
+  getCards,
+  getKeywords,
+  getSubtypes,
+  getTreatments,
+  getTypes,
+} from '@/domain/cards'
 import type { GetCardsQueryParams } from '@/domain/cards/dtos/getCards.dto'
 import { useAppDispatch, useAppSelector } from '@/globalHooks/redux'
+import { selectArtists } from '@/redux/slices/artistsSlice'
 import { reset as resetCards } from '@/redux/slices/cardSlice'
+import { selectKeywords } from '@/redux/slices/keywordsSlice'
 import { selectFilters, setFilters } from '@/redux/slices/searchSlice'
-import { generateOptions } from '@/utils/select'
+import { selectSets } from '@/redux/slices/setSlice'
+import { selectSubtypes } from '@/redux/slices/subtypesSlice'
+import { selectTreatments } from '@/redux/slices/treatmentsSlice'
+import { selectTypes } from '@/redux/slices/typesSlice'
+import { generateOptions, generateSetOptions } from '@/utils/select'
 
 import { type FilterData, filtersSchema } from './zodSchema'
 
@@ -31,11 +39,19 @@ const SearchFilters = () => {
 
   const t = useTranslations('search.filters')
   const tColors = useTranslations('cardData.colors')
-  const tTypes = useTranslations('cardData.types')
-  const tSubtypes = useTranslations('cardData.subtypes')
-  const tRarities = useTranslations('cardData.rarities')
   const tKeywords = useTranslations('cardData.keywords')
+  const tRarities = useTranslations('cardData.rarities')
+  const tSets = useTranslations('cardData.sets')
+  const tSubtypes = useTranslations('cardData.subtypes')
   const tTreatments = useTranslations('cardData.treatments')
+  const tTypes = useTranslations('cardData.types')
+
+  const artists = useAppSelector(selectArtists)
+  const keywords = useAppSelector(selectKeywords)
+  const sets = useAppSelector(selectSets)
+  const subtypes = useAppSelector(selectSubtypes)
+  const treatments = useAppSelector(selectTreatments)
+  const types = useAppSelector(selectTypes)
 
   const {
     handleSubmit,
@@ -78,6 +94,14 @@ const SearchFilters = () => {
     dispatch(getCards.initiate({ locale, params: filters }))
   }
 
+  useEffect(() => {
+    dispatch(getArtists.initiate({}))
+    dispatch(getKeywords.initiate({}))
+    dispatch(getSubtypes.initiate({}))
+    dispatch(getTreatments.initiate({}))
+    dispatch(getTypes.initiate({}))
+  }, [])
+
   return (
     <div className='w-full'>
       <span className='text-2xl font-bold underline'>{t('title')}</span>
@@ -100,7 +124,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='colors'
-          options={generateOptions([...COLORS], tColors, true)}
+          options={generateOptions(COLORS, tColors, true)}
         />
         <span>{t('types')}</span>
         <Select
@@ -108,7 +132,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='types'
-          options={generateOptions([...TYPES], tTypes, true)}
+          options={generateOptions(types, tTypes, true)}
         />
         <span>{t('subtypes')}</span>
         <Select
@@ -116,7 +140,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='subtypes'
-          options={generateOptions([...SUBTYPES], tSubtypes, true)}
+          options={generateOptions(subtypes, tSubtypes, true)}
         />
         <span>{t('rarities')}</span>
         <Select
@@ -124,7 +148,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='rarities'
-          options={generateOptions([...RARITIES], tRarities, true)}
+          options={generateOptions(RARITIES, tRarities, true)}
         />
         <span>{t('keywords')}</span>
         <Select
@@ -132,7 +156,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='keywords'
-          options={generateOptions([...KEYWORDS], tKeywords, true)}
+          options={generateOptions(keywords, tKeywords, true)}
         />
         <span>{t('artists')}</span>
         <Select
@@ -140,7 +164,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='artists'
-          options={generateOptions([...ARTISTS], undefined, true)}
+          options={generateOptions(artists, undefined, true)}
         />
         <span>{t('treatments')}</span>
         <Select
@@ -148,7 +172,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='treatments'
-          options={generateOptions([...TREATMENTS], tTreatments, true)}
+          options={generateOptions(treatments, tTreatments, true)}
         />
         <span>{t('sets')}</span>
         <Select
@@ -156,7 +180,7 @@ const SearchFilters = () => {
           control={control}
           isMulti
           name='setIds'
-          options={[]}
+          options={generateSetOptions(sets, tSets)}
         />
         <Button rounded>{t('apply')}</Button>
       </form>
