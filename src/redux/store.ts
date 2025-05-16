@@ -3,17 +3,27 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import { api } from '@/domain'
 
+import { artistsSlice } from './slices/artistsSlice'
 import { cardSlice } from './slices/cardSlice'
+import { keywordsSlice } from './slices/keywordsSlice'
 import { searchSlice } from './slices/searchSlice'
 import { setSlice } from './slices/setSlice'
+import { subtypesSlice } from './slices/subtypesSlice'
+import { treatmentsSlice } from './slices/treatmentsSlice'
+import { typesSlice } from './slices/typesSlice'
 import { loggerMiddleware } from './loggerMiddleware'
 
 export const makeStore = () =>
   configureStore({
     reducer: {
+      [artistsSlice.name]: artistsSlice.reducer,
       [cardSlice.name]: cardSlice.reducer,
+      [keywordsSlice.name]: keywordsSlice.reducer,
       [searchSlice.name]: searchSlice.reducer,
       [setSlice.name]: setSlice.reducer,
+      [subtypesSlice.name]: subtypesSlice.reducer,
+      [treatmentsSlice.name]: treatmentsSlice.reducer,
+      [typesSlice.name]: typesSlice.reducer,
       [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) =>
