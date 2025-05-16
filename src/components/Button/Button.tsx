@@ -9,6 +9,7 @@ interface Props {
   secondary?: boolean
   onClick?: () => void
   rounded?: boolean
+  type?: 'button' | 'reset' | 'submit'
 }
 
 const Button = ({
@@ -18,6 +19,7 @@ const Button = ({
   secondary,
   onClick,
   rounded,
+  type,
 }: Props) => {
   return (
     <button
@@ -29,6 +31,7 @@ const Button = ({
         className
       )}
       onClick={onClick}
+      type={type}
     >
       {children}
     </button>
