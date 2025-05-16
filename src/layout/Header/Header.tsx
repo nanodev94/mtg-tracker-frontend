@@ -1,30 +1,31 @@
 'use client'
 
 import { FaUser } from 'react-icons/fa'
-import type { SingleValue } from 'react-select'
 import Image from 'next/image'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 
-import type { SelectOption } from '@/components/Select/Select'
 import { PAGE } from '@/constants'
-import { Link, usePathname, useRouter } from '@/i18n/navigation'
+import { Link } from '@/i18n/navigation'
 
+/*
 const LOCALE_OPTIONS: SelectOption[] = [
   { value: 'es', label: 'ES' },
   { value: 'en', label: 'EN' },
 ]
+*/
 
 const Header = () => {
   const t = useTranslations('sections')
-  const locale = useLocale()
-  const router = useRouter()
-  const pathname = usePathname()
+  // const locale = useLocale()
+  // const router = useRouter()
+  // const pathname = usePathname()
 
   const sections = [
     { href: PAGE.SEARCH, label: t('search') },
     { href: PAGE.SETS, label: t('sets') },
   ]
 
+  /*
   const localeDefaultValue = LOCALE_OPTIONS.find(
     (option) => option.value === locale
   )
@@ -32,9 +33,10 @@ const Header = () => {
   const handleLocaleChange = (newValue: SingleValue<SelectOption>) => {
     router.replace({ pathname }, { locale: newValue?.value })
   }
+  */
 
   return (
-    <header className='bg-blue-600 p-4 flex items-center justify-between gap-4'>
+    <header className='bg-header p-4 flex items-center justify-between gap-4 sticky top-0 z-50'>
       <div className='flex items-center gap-4'>
         <Image alt='App Icon' height={40} src='/favicon.webp' width={40} />
         {sections.map(({ href, label }) => (

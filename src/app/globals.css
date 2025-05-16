@@ -28,6 +28,9 @@
   --color-rarity-uncommon: rgb(148, 148, 148);
   --color-rarity-rare: rgb(255, 221, 0);
   --color-rarity-mythic: rgb(255, 51, 0);
+
+  --color-header: rgb(141, 54, 0);
+  --color-background: rgb(61, 61, 61);
 }
 
 body {
