@@ -30,8 +30,8 @@ const Select = ({ control, name, placeholder, ...selectOptions }: Props) => {
     setIsMounted(true)
   }, [])
 
-  // TODO: return loading component
-  if (!isMounted) return <span>Loading...</span>
+  if (!isMounted)
+    return <div className='bg-gray-200 animate-pulse w-full h-9.5 rounded' />
 
   return (
     <Controller

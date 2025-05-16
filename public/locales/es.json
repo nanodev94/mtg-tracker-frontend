@@ -35,7 +35,8 @@
       "treatments": "Tratamientos",
       "sets": "Colecciones",
       "apply": "Aplicar"
-    }
+    },
+    "loading": "Cargando..."
   },
   "setDetails": {
     "code": "Código:",

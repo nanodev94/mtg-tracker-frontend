@@ -35,7 +35,8 @@
       "treatments": "Treatments",
       "sets": "Sets",
       "apply": "Apply"
-    }
+    },
+    "loading": "Loading..."
   },
   "setDetails": {
     "code": "Code:",

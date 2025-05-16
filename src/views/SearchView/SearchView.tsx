@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import CardImage from '@/components/CardImage'
 import { getCards } from '@/domain/cards'
@@ -17,6 +17,7 @@ import { selectFilters, setPage } from '@/redux/slices/searchSlice'
 import SearchFilters from './components/SearchFilters'
 
 const SearchView = () => {
+  const t = useTranslations('search')
   const locale = useLocale()
 
   const dispatch = useAppDispatch()
@@ -80,9 +81,11 @@ const SearchView = () => {
             <CardImage cardId={card.id} hoverEffect isLink key={card.id} />
           ))}
         </div>
-        <div className='p-5 text-center text-2xl'>
-          {cardRequestStatus === 'loading' ? <span>...</span> : null}
-        </div>
+        {cardRequestStatus === 'loading' ? (
+          <div className='bg-gray-200 animate-pulse mt-4 flex items-center justify-center w-full h-9.5 rounded'>
+            <span className='text-background'>{t('loading')}</span>
+          </div>
+        ) : null}
       </div>
     </div>
   )
