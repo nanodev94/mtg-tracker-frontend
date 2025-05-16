@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { CldImage } from 'next-cloudinary'
 import { useLocale } from 'next-intl'
 import clsx from 'clsx'
@@ -17,11 +17,20 @@ interface Props {
   height?: number
   width?: number
   isLink?: boolean
+  hoverEffect?: boolean
 }
 
-const CardImage = ({ cardId, className, height, width, isLink }: Props) => {
+const CardImage = ({
+  cardId,
+  className,
+  height,
+  width,
+  isLink,
+  hoverEffect,
+}: Props) => {
   const dispatch = useAppDispatch()
   const locale = useLocale()
+  const [error, setError] = useState(false)
 
   const card = useAppSelector((state) => selectCardById(state, cardId))
   const set = useAppSelector((state) => selectSet(state, card?.setId ?? -1))
@@ -39,17 +48,28 @@ const CardImage = ({ cardId, className, height, width, isLink }: Props) => {
 
   const imageUrl = getImageUrl(locale, card.setNumber, set.code, card.types)
 
+  const handleError = () => {
+    setError(true)
+  }
+
   return (
     <Link
       aria-disabled={isLink}
       className={clsx(!isLink && 'pointer-events-none')}
       href={`${PAGE.SEARCH}/${cardId}`}
     >
-      <div className='w-full aspect-5/7 rounded-xl bg-green-700'>
+      <div
+        className={clsx(
+          'w-full aspect-5/7 rounded-xl',
+          error && 'bg-black',
+          hoverEffect && 'transition-all duration-300 hover:scale-105'
+        )}
+      >
         <CldImage
           alt={card.name}
           className={clsx(className, 'w-full')}
           height={height ?? 350}
+          onError={handleError}
           src={imageUrl}
           width={width ?? 250}
         />
