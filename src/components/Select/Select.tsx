@@ -23,7 +23,7 @@ interface Props {
   required?: boolean
 }
 
-const Select = ({ control, name, ...selectOptions }: Props) => {
+const Select = ({ control, name, placeholder, ...selectOptions }: Props) => {
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -38,7 +38,12 @@ const Select = ({ control, name, ...selectOptions }: Props) => {
       control={control}
       name={name}
       render={({ field }) => (
-        <ReactSelect {...selectOptions} {...field} className='text-black' />
+        <ReactSelect
+          {...selectOptions}
+          {...field}
+          className='text-black'
+          placeholder={placeholder ?? ''}
+        />
       )}
     />
   )

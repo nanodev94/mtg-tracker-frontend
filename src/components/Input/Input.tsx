@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import clsx from 'clsx'
 
 interface Props {
@@ -36,43 +36,15 @@ const Input = (props: Props) => {
     ...inputProps
   } = props
 
-  const myRef = useRef<HTMLInputElement | null>(null)
-  const [focused, setFocused] = useState(false)
-  const [hasValue, setHasValue] = useState(false)
-
-  useEffect(() => {
-    if (hasValue && !myRef.current?.value) {
-      setHasValue(false)
-    } else if (!hasValue && myRef.current?.value) {
-      setHasValue(true)
-    }
-  }, [myRef.current?.value])
-
   return (
     <div className='flex flex-col'>
-      <div className='flex border-2 border-black pt-4 relative'>
-        <label
-          className={clsx(
-            'transition-all absolute',
-            hasValue || focused ? '-mt-5 text-md' : 'text-xl'
-          )}
-          htmlFor={id}
-        >
-          {label}
-        </label>
+      <div className='flex'>
         <input
           className={clsx(
-            'bg-transparent pb-1.5 pt-1 outline-none w-full',
+            'bg-white border-[#ccc] border-2 text-black p-1 outline-none w-full rounded',
             className
           )}
           id={id}
-          onBlur={(event) => {
-            setFocused(false)
-            onBlur?.(event)
-          }}
-          onFocus={() => {
-            setFocused(true)
-          }}
           type={type}
           {...inputProps}
         />
