@@ -14,11 +14,10 @@ interface Props {
 const SetData = ({ set }: Props) => {
   const t = useTranslations('setDetails')
 
-  // TODO: add loader
-  if (!set) return 'loading...'
+  if (!set) return null
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='bg-gray-700 flex flex-col grow gap-2 p-8 rounded-xl'>
       <span>{`${t('code')} ${set.code}`}</span>
       <span>{`${t('name')} ${set.name}`}</span>
       <span>{`${t('releasedAt')} ${set.releasedAt.toLocaleString()}`}</span>
