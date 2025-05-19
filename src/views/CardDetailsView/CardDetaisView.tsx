@@ -18,7 +18,7 @@ const CardDetailsView = ({ cardId }: Props) => {
 
   return (
     <div className='p-12'>
-      <div className='flex gap-4 mb-12 flex-col md:flex-row'>
+      <div className='flex justify-center gap-4 mb-12 flex-col md:flex-row'>
         <CardImage
           cardId={cardId}
           className='flex-2/5'
@@ -28,14 +28,15 @@ const CardDetailsView = ({ cardId }: Props) => {
         <CardData card={card} className='flex-3/5' />
       </div>
       {card?.alternatives ? (
-        <div>
-          <span className='text-3xl font-bold underline'>
+        <div className='bg-gray-700 p-8 rounded-xl'>
+          <span className='text-3xl font-bold uppercase'>
             {t('alternatives')}
           </span>
-          <div className='gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+          <div className='mt-8 gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
             {card.alternatives.map((cardAlternative) => (
               <CardImage
                 cardId={cardAlternative}
+                hoverEffect
                 isLink
                 key={cardAlternative}
               />
