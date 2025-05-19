@@ -8,14 +8,15 @@ import type { Set } from '@/domain/@types'
 import { Link } from '@/i18n/navigation'
 import { getSetUrl } from '@/utils/images'
 
+import Loader from '../Loader'
+
 interface Props {
   hasHoverEffect?: boolean
   set?: Set
 }
 
 const SetLogo = ({ hasHoverEffect, set }: Props) => {
-  // TODO: add loader
-  if (!set) return 'loading...'
+  if (!set) return <Loader />
 
   const setUrl = getSetUrl(set.code)
 
@@ -27,8 +28,8 @@ const SetLogo = ({ hasHoverEffect, set }: Props) => {
       <div
         className={clsx(
           hasHoverEffect &&
-            'cursor-pointer hover:bg-amber-400 transition-all duration-500',
-          'p-4 aspect-5/7 flex flex-col items-center justify-center'
+            'cursor-pointer hover:bg-amber-400 transition-all duration-500 hover:scale-105',
+          'bg-gray-700 p-4 aspect-square flex flex-col items-center justify-center rounded-xl'
         )}
       >
         <CldImage alt='' height={50} src={setUrl.symbol} width={50} />
