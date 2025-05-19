@@ -1,0 +1,40 @@
+.mana-white-symbol {
+  background-image: url('/images/mana/white.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 92%;
+  display: inline-block;
+  font-size: 100%;
+}
+.mana-blue-symbol {
+  background-image: url('/images/mana/blue.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  display: inline-block;
+  font-size: 100%;
+}
+.mana-black-symbol {
+  background-image: url('/images/mana/black.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  display: inline-block;
+  font-size: 100%;
+}
+.mana-red-symbol {
+  background-image: url('/images/mana/red.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  display: inline-block;
+  font-size: 100%;
+}
+.mana-green-symbol {
+  background-image: url('/images/mana/green.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 90%;
+  display: inline-block;
+  font-size: 100%;
+}

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import clsx from 'clsx'
 
 import { Color } from '@/types'
@@ -7,36 +8,40 @@ interface Props {
 }
 
 const ColorIcon: Record<string, React.ReactNode> = {
-  [Color.BLACK]: <span>B</span>,
-  [Color.WHITE]: <span>W</span>,
-  [Color.RED]: <span>R</span>,
-  [Color.BLUE]: <span>B</span>,
-  [Color.GREEN]: <span>G</span>,
+  [Color.BLACK]: 'bg-mana-black mana-black-symbol',
+  [Color.WHITE]: 'bg-mana-white mana-white-symbol',
+  [Color.RED]: 'bg-mana-red mana-red-symbol',
+  [Color.BLUE]: 'bg-mana-blue mana-blue-symbol',
+  [Color.GREEN]: 'bg-mana-green mana-green-symbol',
 }
 
 const ManaIndicator = ({ mana }: Props) => {
-  // TODO: fix mana in rooms
+  const differentManaCosts = mana.split('//')
+
   return (
-    <div className='flex'>
-      {mana
-        .slice(1, -1)
-        .split('][')
-        .map((color) => (
-          <div
-            className={clsx(
-              !ColorIcon[color] && 'bg-mana-colorless',
-              color === Color.BLACK && 'bg-mana-black',
-              color === Color.WHITE && 'bg-mana-white',
-              color === Color.RED && 'bg-mana-red',
-              color === Color.BLUE && 'bg-mana-blue',
-              color === Color.GREEN && 'bg-mana-green',
-              'size-6 border-2 rounded-full text-black flex items-center justify-center'
-            )}
-            key={color}
-          >
-            {ColorIcon[color] ?? <span>{color}</span>}
-          </div>
-        ))}
+    <div className='flex gap-2'>
+      {differentManaCosts.map((mana, index) => {
+        const colors = mana.slice(1, -1).split('][')
+
+        return (
+          <>
+            {index !== 0 && <span>//</span>}
+            <div className='flex'>
+              {colors.map((color) => (
+                <div
+                  className={clsx(
+                    ColorIcon[color] ?? 'bg-mana-colorless',
+                    'size-6 border-2 rounded-full text-black flex items-center justify-center'
+                  )}
+                  key={color}
+                >
+                  {!ColorIcon[color] && <span>{color}</span>}
+                </div>
+              ))}
+            </div>
+          </>
+        )
+      })}
     </div>
   )
 }
