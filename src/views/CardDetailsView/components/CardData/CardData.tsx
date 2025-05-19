@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl'
 import clsx from 'clsx'
 
 import Chip from '@/components/Chip'
+import Loader from '@/components/Loader'
 import ManaIndicator from '@/components/ManaIndicator'
 import RarityIndicator from '@/components/RarityIndicator'
 import type { Card } from '@/domain/@types'
@@ -17,11 +18,15 @@ const CardData = ({ card, className }: Props) => {
   const t = useTranslations('cardDetails')
   const set = useAppSelector((state) => selectSet(state, card?.setId ?? -1))
 
-  // TODO: add loader
-  if (!card || !set) return 'loading...'
+  if (!card || !set) return <Loader />
 
   return (
-    <div className={clsx(className, 'flex flex-col p-8 text-lg')}>
+    <div
+      className={clsx(
+        className,
+        'flex flex-col gap-2 p-8 text-lg bg-gray-700 rounded-xl'
+      )}
+    >
       <span>{`${t('name')} ${card.name}`}</span>
       {card.mana ? (
         <div className='flex gap-2 items-center'>
@@ -43,6 +48,9 @@ const CardData = ({ card, className }: Props) => {
         <span>{`${t('description')} ${card.description}`}</span>
       ) : null}
       {card.lore ? <span>{`${t('lore')} ${card.lore}`}</span> : null}
+      {card.loyalty ? <span>{`${t('loyalty')} ${card.loyalty}`}</span> : null}
+      {card.power ? <span>{`${t('power')} ${card.power}`}</span> : null}
+      {card.defense ? <span>{`${t('defense')} ${card.defense}`}</span> : null}
       {card.artist ? <span>{`${t('artist')} ${card.artist}`}</span> : null}
       {card.keywords ? (
         <div className='flex flex-col'>
@@ -54,9 +62,6 @@ const CardData = ({ card, className }: Props) => {
           </div>
         </div>
       ) : null}
-      {card.loyalty ? <span>{`${t('loyalty')} ${card.loyalty}`}</span> : null}
-      {card.power ? <span>{`${t('power')} ${card.power}`}</span> : null}
-      {card.defense ? <span>{`${t('defense')} ${card.defense}`}</span> : null}
       {card.types ? (
         <div className='flex flex-col'>
           <span>{t('types')}</span>

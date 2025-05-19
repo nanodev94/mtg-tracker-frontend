@@ -31,6 +31,7 @@ const CardImage = ({
   const dispatch = useAppDispatch()
   const locale = useLocale()
   const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const card = useAppSelector((state) => selectCardById(state, cardId))
   const set = useAppSelector((state) => selectSet(state, card?.setId ?? -1))
@@ -39,17 +40,18 @@ const CardImage = ({
     if (!card) {
       dispatch(getCard.initiate({ locale, id: cardId }))
     }
-  }, [cardId])
+  }, [card, cardId, dispatch, locale])
 
-  // TODO: Add loader
-  if (!card || !set) return 'loading...'
-
-  // TODO: Add image on load error
+  if (!card || !set) return null
 
   const imageUrl = getImageUrl(locale, card.setNumber, set.code, card.types)
 
   const handleError = () => {
     setError(true)
+  }
+
+  const handleLoad = () => {
+    setLoading(false)
   }
 
   return (
@@ -60,16 +62,20 @@ const CardImage = ({
     >
       <div
         className={clsx(
-          'w-full aspect-5/7 rounded-xl',
+          'w-full aspect-5/7 rounded-xl overflow-hidden',
           error && 'bg-black',
           hoverEffect && 'transition-all duration-300 hover:scale-105'
         )}
       >
+        {!error && loading ? (
+          <div className='bg-gray-200 animate-pulse w-full h-full rounded' />
+        ) : null}
         <CldImage
           alt={card.name}
           className={clsx(className, 'w-full')}
           height={height ?? 350}
           onError={handleError}
+          onLoad={handleLoad}
           src={imageUrl}
           width={width ?? 250}
         />
