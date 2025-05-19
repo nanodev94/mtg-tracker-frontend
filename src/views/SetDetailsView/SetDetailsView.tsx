@@ -14,7 +14,7 @@ const SetDetailsView = ({ setId }: Props) => {
   const set = useAppSelector((state) => selectSet(state, setId))
 
   return (
-    <div className='flex flex-col md:flex-row p-12'>
+    <div className='flex gap-6 flex-col md:flex-row p-12'>
       <SetLogo set={set} />
       <SetData set={set} />
     </div>

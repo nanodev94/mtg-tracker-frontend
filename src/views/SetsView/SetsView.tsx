@@ -8,7 +8,7 @@ const SetsView = () => {
   const sets = useAppSelector(selectSets)
 
   return (
-    <div className='p-12 grid grid-cols-4'>
+    <div className='p-12 grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-col-6'>
       {sets.map((set) => (
         <SetLogo hasHoverEffect key={set.id} set={set} />
       ))}

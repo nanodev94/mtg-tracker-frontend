@@ -37,7 +37,7 @@ const Header = () => {
 
   return (
     <header className='bg-header p-4 flex items-center justify-between gap-4 sticky top-0 z-50'>
-      <div className='flex items-center gap-4'>
+      <div className='flex items-center gap-6'>
         <Image alt='App Icon' height={40} src='/favicon.webp' width={40} />
         {sections.map(({ href, label }) => (
           <Link
