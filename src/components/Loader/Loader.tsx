@@ -1,6 +1,10 @@
-const Loader = () => {
+interface Props {
+  className?: string
+}
+
+const Loader = ({ className }: Props) => {
   return (
-    <div>
+    <div className={className}>
       <svg
         aria-hidden='true'
         className='inline w-20 h-20 text-gray-200 animate-spin dark:text-gray-400 fill-blue'

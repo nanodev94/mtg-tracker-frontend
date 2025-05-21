@@ -11,6 +11,7 @@ import { setSlice } from './slices/setSlice'
 import { subtypesSlice } from './slices/subtypesSlice'
 import { treatmentsSlice } from './slices/treatmentsSlice'
 import { typesSlice } from './slices/typesSlice'
+import { userSlice } from './slices/userSlice'
 import { loggerMiddleware } from './loggerMiddleware'
 
 export const makeStore = () =>
@@ -24,6 +25,7 @@ export const makeStore = () =>
       [subtypesSlice.name]: subtypesSlice.reducer,
       [treatmentsSlice.name]: treatmentsSlice.reducer,
       [typesSlice.name]: typesSlice.reducer,
+      [userSlice.name]: userSlice.reducer,
       [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) =>

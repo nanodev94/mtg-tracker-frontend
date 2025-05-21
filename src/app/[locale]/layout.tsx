@@ -8,6 +8,7 @@ import Footer from '@/layout/Footer'
 import Header from '@/layout/Header'
 import ReduxProvider from '@/redux/Provider'
 import ContextWrapper from '@/wrappers/ContextWrapper'
+import SessionWrapper from '@/wrappers/SessionWrapper'
 
 import '../globals.css'
 
@@ -34,20 +35,22 @@ const RootLayout = async ({ children, params }: Props) => {
 
   return (
     <ReduxProvider>
-      <ContextWrapper>
-        <NextIntlClientProvider messages={messages}>
-          <html lang={locale}>
-            <head>
-              <link href='/favicon.webp' rel='icon' sizes='any' />
-            </head>
-            <body className={inter.className}>
-              <Header />
-              {children}
-              <Footer />
-            </body>
-          </html>
-        </NextIntlClientProvider>
-      </ContextWrapper>
+      <SessionWrapper>
+        <ContextWrapper>
+          <NextIntlClientProvider messages={messages}>
+            <html lang={locale}>
+              <head>
+                <link href='/favicon.webp' rel='icon' sizes='any' />
+              </head>
+              <body className={inter.className}>
+                <Header />
+                <div className='grow'>{children}</div>
+                <Footer />
+              </body>
+            </html>
+          </NextIntlClientProvider>
+        </ContextWrapper>
+      </SessionWrapper>
     </ReduxProvider>
   )
 }

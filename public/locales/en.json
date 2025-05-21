@@ -1,7 +1,11 @@
 {
-  "sections": {
-    "search": "SEARCH",
-    "sets": "SETS"
+  "header": {
+    "sections": {
+      "search": "SEARCH",
+      "sets": "SETS"
+    },
+    "signIn": "SignIn",
+    "closeSession": "Close session"
   },
   "cardDetails": {
     "alternatives": "Alternatives",
@@ -20,6 +24,21 @@
     "subtypes": "Subtypes:",
     "treatments": "Treatments:",
     "types": "Types:"
+  },
+  "login": {
+    "title": "LOGIN",
+    "email": "Email",
+    "password": "Password",
+    "apply": "Login",
+    "register": "Create an account?"
+  },
+  "register": {
+    "title": "REGISTER",
+    "email": "Email",
+    "password": "Password",
+    "confirm": "Confirm password",
+    "apply": "Create",
+    "login": "Already have an account?"
   },
   "search": {
     "filters": {

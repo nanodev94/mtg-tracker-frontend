@@ -1,5 +1,4 @@
 'use client'
-/* eslint-disable react/jsx-no-useless-fragment */
 
 import { useEffect } from 'react'
 
@@ -17,7 +16,7 @@ const ContextWrapper = ({ children }: Props) => {
     dispatch(getSets.initiate({}, { forceRefetch: true }))
   }, [dispatch])
 
-  return <>{children}</>
+  return children
 }
 
 export default ContextWrapper

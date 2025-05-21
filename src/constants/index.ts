@@ -19,6 +19,10 @@ export enum COOKIE_KEY {
   NEXT_LOCALE = 'NEXT_LOCALE',
 }
 
+export enum LOCAL_STORAGE_KEY {
+  USER_DATA = 'USER_DATA',
+}
+
 export enum ENVIRONMENTS {
   development = 'development',
   production = 'production',

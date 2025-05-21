@@ -3,7 +3,7 @@ import z from 'zod'
 import { selectOptionValidation } from '@/utils/zodValidations'
 
 export const filtersSchema = z.object({
-  name: z.string().optional(),
+  name: z.string().max(150).optional(),
   sortBy: selectOptionValidation.optional(),
   colors: z.array(selectOptionValidation).optional(),
   types: z.array(selectOptionValidation).optional(),

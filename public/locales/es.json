@@ -1,7 +1,11 @@
 {
-  "sections": {
-    "search": "BUSCADOR",
-    "sets": "COLECCIONES"
+  "header": {
+    "sections": {
+      "search": "BUSCADOR",
+      "sets": "COLECCIONES"
+    },
+    "signIn": "Iniciar sesión",
+    "closeSession": "Cerrar sesión"
   },
   "cardDetails": {
     "alternatives": "Alternativas",
@@ -20,6 +24,21 @@
     "subtypes": "Subtipos:",
     "treatments": "Tratamientos:",
     "types": "Tipos:"
+  },
+  "login": {
+    "title": "INICIAR SESIÓN",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "apply": "Iniciar sesión",
+    "register": "¿Crear una cuenta?"
+  },
+  "register": {
+    "title": "CREAR CUENTA",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirm": "Repetir contraseña",
+    "apply": "Crear cuenta",
+    "login": "¿Ya tienes una cuenta?"
   },
   "search": {
     "filters": {

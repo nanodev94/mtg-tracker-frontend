@@ -5,7 +5,6 @@ import clsx from 'clsx'
 
 interface Props {
   id: string
-  label: string
   type?: 'text' | 'email' | 'password' | 'number'
   autocomplete?: 'off'
   className?: string
@@ -26,15 +25,7 @@ interface Props {
 }
 
 const Input = (props: Props) => {
-  const {
-    id,
-    label,
-    type = 'text',
-    className,
-    error,
-    onBlur,
-    ...inputProps
-  } = props
+  const { id, type = 'text', className, error, onBlur, ...inputProps } = props
 
   return (
     <div className='flex flex-col'>
@@ -49,7 +40,7 @@ const Input = (props: Props) => {
           {...inputProps}
         />
       </div>
-      <span className='text-red-700'>{error}</span>
+      <span className='text-red-500'>{error}</span>
     </div>
   )
 }

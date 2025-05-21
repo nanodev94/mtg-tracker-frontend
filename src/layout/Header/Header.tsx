@@ -1,11 +1,13 @@
 'use client'
 
-import { FaUser } from 'react-icons/fa'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
+import Button from '@/components/Button'
 import { PAGE } from '@/constants'
+import { useAppDispatch, useAppSelector } from '@/globalHooks/redux'
 import { Link } from '@/i18n/navigation'
+import { reset, selectUser } from '@/redux/slices/userSlice'
 
 /*
 const LOCALE_OPTIONS: SelectOption[] = [
@@ -15,14 +17,18 @@ const LOCALE_OPTIONS: SelectOption[] = [
 */
 
 const Header = () => {
-  const t = useTranslations('sections')
+  const t = useTranslations('header')
+  const dispatch = useAppDispatch()
   // const locale = useLocale()
   // const router = useRouter()
   // const pathname = usePathname()
 
+  // TODO: check close session button when user has session and reload page
+  const userData = useAppSelector(selectUser)
+
   const sections = [
-    { href: PAGE.SEARCH, label: t('search') },
-    { href: PAGE.SETS, label: t('sets') },
+    { href: PAGE.SEARCH, label: t('sections.search') },
+    { href: PAGE.SETS, label: t('sections.sets') },
   ]
 
   /*
@@ -34,6 +40,10 @@ const Header = () => {
     router.replace({ pathname }, { locale: newValue?.value })
   }
   */
+
+  const handleCloseSession = () => {
+    dispatch(reset())
+  }
 
   return (
     <header className='bg-header p-4 flex items-center justify-between gap-4 sticky top-0 z-50'>
@@ -58,9 +68,15 @@ const Header = () => {
           options={LOCALE_OPTIONS}
         />
         */}
-        <button className='cursor-pointer bg-red-500 p-4 rounded-full'>
-          <FaUser size={20} />
-        </button>
+        {userData ? (
+          <Button onClick={handleCloseSession} rounded>
+            {t('closeSession')}
+          </Button>
+        ) : (
+          <Link href={PAGE.LOGIN}>
+            <Button rounded>{t('signIn')}</Button>
+          </Link>
+        )}
       </div>
     </header>
   )
