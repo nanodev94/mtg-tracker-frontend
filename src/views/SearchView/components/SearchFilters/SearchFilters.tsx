@@ -114,7 +114,6 @@ const SearchFilters = () => {
           <Input
             error={errors.name?.message}
             id='name'
-            label={t('name')}
             type='text'
             {...register('name')}
           />

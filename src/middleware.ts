@@ -1,8 +1,14 @@
-import createMiddleware from 'next-intl/middleware'
+import type { NextRequest, NextResponse } from 'next/server'
 
-import { routing } from './i18n/routing'
+import intlMiddleware from './middlewares/intlMiddleware'
+import redirectMiddleware from './middlewares/redirectMiddleware'
 
-export default createMiddleware(routing)
+const middleware = (req: NextRequest): NextResponse => {
+  const redirection = redirectMiddleware(req)
+  if (redirection) return redirection
+
+  return intlMiddleware(req)
+}
 
 export const config = {
   // Match only internationalized pathnames
@@ -19,3 +25,5 @@ export const config = {
     '/((?!_next|_vercel|.*\\..*).*)',
   ],
 }
+
+export default middleware

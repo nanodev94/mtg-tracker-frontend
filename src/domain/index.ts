@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+import type { RootState } from '@/redux/store'
+
 // Custom paramsSerializer function for query parameter serialization
 const paramsSerializer = (params: Record<string, any>): string => {
   const searchParams = new URLSearchParams()
@@ -30,13 +32,11 @@ export const api = createApi({
     mode: 'cors',
     paramsSerializer,
     prepareHeaders: (headers, { getState }) => {
-      /* TODO
-      const token = (getState() as RootState).user.token
+      const token = (getState() as RootState).user.userData?.token
 
       if (token) {
         headers.set('authorization', `Bearer ${token}`)
       }
-      */
 
       return headers
     },
