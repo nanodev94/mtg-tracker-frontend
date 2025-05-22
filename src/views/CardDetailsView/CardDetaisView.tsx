@@ -8,7 +8,7 @@ import CardImage from '@/components/CardImage'
 import { addUserCard, removeUserCard } from '@/domain/users'
 import { useAppDispatch, useAppSelector } from '@/globalHooks/redux'
 import { selectCardById } from '@/redux/slices/cardSlice'
-import { selectUserCardAmount } from '@/redux/slices/userSlice'
+import { selectUser, selectUserCardAmount } from '@/redux/slices/userSlice'
 import { Treatment } from '@/types'
 
 import defaultCardIcon from '../../../public/images/dot.svg'
@@ -24,6 +24,7 @@ const CardDetailsView = ({ cardId }: Props) => {
   const t = useTranslations('cardDetails')
   const dispatch = useAppDispatch()
 
+  const user = useAppSelector(selectUser)
   const card = useAppSelector((state) => selectCardById(state, cardId))
   const defaultCount = useAppSelector((state) =>
     selectUserCardAmount(state, cardId, Treatment.DEFAULT)
@@ -75,31 +76,33 @@ const CardDetailsView = ({ cardId }: Props) => {
             height={450}
             width={350}
           />
-          <div className='flex justify-center gap-4'>
-            {trackingOptions.map(({ treatment, icon, count }) => (
-              <div
-                className='bg-gray-700 flex items-center gap-1 rounded-2xl overflow-hidden'
-                key={treatment}
-              >
-                <Button
-                  onClick={() =>
-                    handleTrackingClick({ treatment, increase: true })
-                  }
+          {user ? (
+            <div className='flex justify-center gap-4'>
+              {trackingOptions.map(({ treatment, icon, count }) => (
+                <div
+                  className='bg-gray-700 flex items-center gap-1 rounded-2xl overflow-hidden'
+                  key={treatment}
                 >
-                  +
-                </Button>
-                <Image alt='.' height={20} priority src={icon} width={20} />
-                <span className='min-w-6 text-center'>{count}</span>
-                <Button
-                  onClick={() =>
-                    handleTrackingClick({ treatment, increase: false })
-                  }
-                >
-                  -
-                </Button>
-              </div>
-            ))}
-          </div>
+                  <Button
+                    onClick={() =>
+                      handleTrackingClick({ treatment, increase: true })
+                    }
+                  >
+                    +
+                  </Button>
+                  <Image alt='.' height={20} priority src={icon} width={20} />
+                  <span className='min-w-6 text-center'>{count}</span>
+                  <Button
+                    onClick={() =>
+                      handleTrackingClick({ treatment, increase: false })
+                    }
+                  >
+                    -
+                  </Button>
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
         <CardData card={card} className='flex-3/5' />
       </div>
