@@ -94,7 +94,7 @@ const CardImage = ({
           width={width ?? 250}
         />
         {showAmount && (defaultCount || foilCount) ? (
-          <div className='flex gap-4 bg-gray-500/75 py-1 px-2 absolute right-16 bottom-0'>
+          <div className='flex gap-4 bg-gray-700 rounded-t-xl py-1 px-2 absolute right-16 bottom-0'>
             <div className='flex gap-1'>
               <Image
                 alt='.'
@@ -103,7 +103,7 @@ const CardImage = ({
                 src={defaultCardIcon}
                 width={15}
               />
-              <span>{defaultCount}</span>
+              <span className='font-bold'>{defaultCount}</span>
             </div>
             <div className='flex gap-1'>
               <Image
@@ -113,7 +113,7 @@ const CardImage = ({
                 src={foilCardIcon}
                 width={15}
               />
-              <span>{foilCount}</span>
+              <span className='font-bold'>{foilCount}</span>
             </div>
           </div>
         ) : null}

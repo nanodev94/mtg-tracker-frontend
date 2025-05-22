@@ -91,7 +91,7 @@ const CardDetailsView = ({ cardId }: Props) => {
                     +
                   </Button>
                   <Image alt='.' height={20} priority src={icon} width={20} />
-                  <span className='min-w-6 text-center'>{count}</span>
+                  <span className='min-w-6 text-center font-bold'>{count}</span>
                   <Button
                     onClick={() =>
                       handleTrackingClick({ treatment, increase: false })
