@@ -1,8 +1,14 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import type { UI_MODE } from '@/constants'
-import { postLogin, postRegister } from '@/domain/users'
-import type { RequestStatus } from '@/types'
+import {
+  addUserCard,
+  getUserCards,
+  postLogin,
+  postRegister,
+  removeUserCard,
+} from '@/domain/users'
+import { type RequestStatus, Treatment } from '@/types'
 
 interface UserData {
   id: number
@@ -12,13 +18,23 @@ interface UserData {
   token: string
 }
 
+interface CardAmount {
+  [cardId: number]: {
+    [treatment: string]: number
+  }
+}
+
 export interface UserSliceState {
   userData?: UserData
-  status: RequestStatus
+  userCards: CardAmount
+  userStatus: RequestStatus
+  userCardsStatus: RequestStatus
 }
 
 const initialState: UserSliceState = {
-  status: 'idle',
+  userCards: {},
+  userStatus: 'idle',
+  userCardsStatus: 'idle',
 }
 
 export const userSlice = createSlice({
@@ -33,7 +49,7 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addMatcher(postLogin.matchFulfilled, (state, { payload }) => {
-        state.status = 'idle'
+        state.userStatus = 'idle'
         state.userData = {
           id: payload.id,
           email: payload.email,
@@ -43,27 +59,69 @@ export const userSlice = createSlice({
         }
       })
       .addMatcher(postLogin.matchPending, (state) => {
-        state.status = 'loading'
+        state.userStatus = 'loading'
       })
       .addMatcher(postLogin.matchRejected, (state) => {
-        state.status = 'failed'
+        state.userStatus = 'failed'
       })
       .addMatcher(postRegister.matchFulfilled, (state) => {
-        state.status = 'idle'
+        state.userStatus = 'idle'
       })
       .addMatcher(postRegister.matchPending, (state) => {
-        state.status = 'loading'
+        state.userStatus = 'loading'
       })
       .addMatcher(postRegister.matchRejected, (state) => {
-        state.status = 'failed'
+        state.userStatus = 'failed'
+      })
+      .addMatcher(getUserCards.matchFulfilled, (state, { payload }) => {
+        state.userCardsStatus = 'idle'
+
+        payload.cards.forEach(({ cardId, treatment, amount }) => {
+          if (!state.userCards[cardId]) {
+            state.userCards[cardId] = {
+              [Treatment.DEFAULT]: 0,
+              [Treatment.FOIL]: 0,
+            }
+          }
+          state.userCards[cardId][treatment] = amount
+        })
+      })
+      .addMatcher(getUserCards.matchPending, (state) => {
+        state.userCardsStatus = 'loading'
+      })
+      .addMatcher(getUserCards.matchRejected, (state) => {
+        state.userCardsStatus = 'failed'
+      })
+      .addMatcher(addUserCard.matchFulfilled, (state, { payload }) => {
+        const { cardId, treatment, amount } = payload
+        if (!state.userCards[cardId]) {
+          state.userCards[cardId] = {
+            [Treatment.DEFAULT]: 0,
+            [Treatment.FOIL]: 0,
+          }
+        }
+        state.userCards[cardId][treatment] = amount
+      })
+      .addMatcher(removeUserCard.matchFulfilled, (state, { payload }) => {
+        const { cardId, treatment, amount } = payload
+        if (!state.userCards[cardId]) {
+          state.userCards[cardId] = {
+            [Treatment.DEFAULT]: 0,
+            [Treatment.FOIL]: 0,
+          }
+        }
+        state.userCards[cardId][treatment] = amount
       })
   },
   selectors: {
     selectUser: (state) => state.userData,
-    selectUserStatus: (state) => state.status,
+    selectUserStatus: (state) => state.userStatus,
+    selectUserCardAmount: (state, cardId: number, treatment: Treatment) =>
+      state.userCards[cardId]?.[treatment] ?? 0,
   },
 })
 
 export const { reset, setUserData } = userSlice.actions
 
-export const { selectUser, selectUserStatus } = userSlice.selectors
+export const { selectUser, selectUserStatus, selectUserCardAmount } =
+  userSlice.selectors

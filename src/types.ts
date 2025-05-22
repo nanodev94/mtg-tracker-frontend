@@ -16,3 +16,8 @@ export const enum Rarity {
   RARE = 'RARE',
   MYTHIC = 'MYTHIC',
 }
+
+export const enum Treatment {
+  DEFAULT = 'DEFAULT',
+  FOIL = 'FOIL',
+}

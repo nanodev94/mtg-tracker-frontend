@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { CldImage } from 'next-cloudinary'
 import { useLocale } from 'next-intl'
 import clsx from 'clsx'
@@ -9,7 +10,12 @@ import { useAppDispatch, useAppSelector } from '@/globalHooks/redux'
 import { Link } from '@/i18n/navigation'
 import { selectCardById } from '@/redux/slices/cardSlice'
 import { selectSet } from '@/redux/slices/setSlice'
+import { selectUserCardAmount } from '@/redux/slices/userSlice'
+import { Treatment } from '@/types'
 import { getImageUrl } from '@/utils/images'
+
+import defaultCardIcon from '../../../public/images/dot.svg'
+import foilCardIcon from '../../../public/images/star.svg'
 
 interface Props {
   cardId: number
@@ -18,6 +24,7 @@ interface Props {
   width?: number
   isLink?: boolean
   hoverEffect?: boolean
+  showAmount?: boolean
 }
 
 const CardImage = ({
@@ -27,6 +34,7 @@ const CardImage = ({
   width,
   isLink,
   hoverEffect,
+  showAmount,
 }: Props) => {
   const dispatch = useAppDispatch()
   const locale = useLocale()
@@ -35,6 +43,12 @@ const CardImage = ({
 
   const card = useAppSelector((state) => selectCardById(state, cardId))
   const set = useAppSelector((state) => selectSet(state, card?.setId ?? -1))
+  const defaultCount = useAppSelector((state) =>
+    selectUserCardAmount(state, card?.id ?? -1, Treatment.DEFAULT)
+  )
+  const foilCount = useAppSelector((state) =>
+    selectUserCardAmount(state, card?.id ?? -1, Treatment.FOIL)
+  )
 
   useEffect(() => {
     if (!card) {
@@ -62,7 +76,7 @@ const CardImage = ({
     >
       <div
         className={clsx(
-          'w-full aspect-5/7 rounded-xl overflow-hidden',
+          'w-full aspect-5/7 rounded-xl overflow-hidden relative',
           error && 'bg-black',
           hoverEffect && 'transition-all duration-300 hover:scale-105'
         )}
@@ -79,6 +93,30 @@ const CardImage = ({
           src={imageUrl}
           width={width ?? 250}
         />
+        {showAmount && (defaultCount || foilCount) ? (
+          <div className='flex gap-4 bg-gray-500/75 py-1 px-2 absolute right-16 bottom-0'>
+            <div className='flex gap-1'>
+              <Image
+                alt='.'
+                height={15}
+                priority
+                src={defaultCardIcon}
+                width={15}
+              />
+              <span>{defaultCount}</span>
+            </div>
+            <div className='flex gap-1'>
+              <Image
+                alt='.'
+                height={15}
+                priority
+                src={foilCardIcon}
+                width={15}
+              />
+              <span>{foilCount}</span>
+            </div>
+          </div>
+        ) : null}
       </div>
     </Link>
   )

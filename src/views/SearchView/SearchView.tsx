@@ -78,7 +78,13 @@ const SearchView = () => {
       <div className='flex-3/4 xl:flex-4/5'>
         <div className='w-full h-fit gap-6 pl-6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
           {cards.map((card) => (
-            <CardImage cardId={card.id} hoverEffect isLink key={card.id} />
+            <CardImage
+              cardId={card.id}
+              hoverEffect
+              isLink
+              key={card.id}
+              showAmount
+            />
           ))}
         </div>
         {cardRequestStatus === 'loading' ? (
