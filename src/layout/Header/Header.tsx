@@ -65,7 +65,7 @@ const Header = () => {
           <Link
             className={clsx(
               'text-xl font-bold hover:text-red-500 transition-all duration-300',
-              pathname === href && 'text-red-500'
+              pathname.includes(href) && 'text-red-500'
             )}
             href={href}
             key={label}
