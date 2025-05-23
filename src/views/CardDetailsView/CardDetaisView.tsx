@@ -11,9 +11,6 @@ import { selectCardById } from '@/redux/slices/cardSlice'
 import { selectUser, selectUserCardAmount } from '@/redux/slices/userSlice'
 import { Treatment } from '@/types'
 
-import defaultCardIcon from '../../../public/images/dot.svg'
-import foilCardIcon from '../../../public/images/star.svg'
-
 import CardData from './components/CardData'
 
 interface Props {
@@ -36,12 +33,12 @@ const CardDetailsView = ({ cardId }: Props) => {
   const trackingOptions = [
     {
       treatment: Treatment.DEFAULT,
-      icon: defaultCardIcon,
+      icon: '/images/dot.svg',
       count: defaultCount,
     },
     {
       treatment: Treatment.FOIL,
-      icon: foilCardIcon,
+      icon: '/images/star.svg',
       count: foilCount,
     },
   ]

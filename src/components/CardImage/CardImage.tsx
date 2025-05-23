@@ -14,9 +14,6 @@ import { selectUserCardAmount } from '@/redux/slices/userSlice'
 import { Treatment } from '@/types'
 import { getImageUrl } from '@/utils/images'
 
-import defaultCardIcon from '../../../public/images/dot.svg'
-import foilCardIcon from '../../../public/images/star.svg'
-
 interface Props {
   cardId: number
   className?: string
@@ -100,7 +97,7 @@ const CardImage = ({
                 alt='.'
                 height={15}
                 priority
-                src={defaultCardIcon}
+                src='/images/dot.svg'
                 width={15}
               />
               <span className='font-bold'>{defaultCount}</span>
@@ -110,7 +107,7 @@ const CardImage = ({
                 alt='.'
                 height={15}
                 priority
-                src={foilCardIcon}
+                src='/images/star.svg'
                 width={15}
               />
               <span className='font-bold'>{foilCount}</span>
