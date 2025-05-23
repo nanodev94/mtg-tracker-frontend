@@ -14,9 +14,6 @@ import { selectUserCardAmount } from '@/redux/slices/userSlice'
 import { Treatment } from '@/types'
 import { getImageUrl } from '@/utils/images'
 
-import defaultCardIcon from '../../../public/images/dot.svg'
-import foilCardIcon from '../../../public/images/star.svg'
-
 interface Props {
   cardId: number
   className?: string
@@ -94,26 +91,26 @@ const CardImage = ({
           width={width ?? 250}
         />
         {showAmount && (defaultCount || foilCount) ? (
-          <div className='flex gap-4 bg-gray-500/75 py-1 px-2 absolute right-16 bottom-0'>
+          <div className='flex gap-4 bg-gray-700 rounded-t-xl py-1 px-2 absolute right-16 bottom-0'>
             <div className='flex gap-1'>
               <Image
                 alt='.'
                 height={15}
                 priority
-                src={defaultCardIcon}
+                src='/images/dot.svg'
                 width={15}
               />
-              <span>{defaultCount}</span>
+              <span className='font-bold'>{defaultCount}</span>
             </div>
             <div className='flex gap-1'>
               <Image
                 alt='.'
                 height={15}
                 priority
-                src={foilCardIcon}
+                src='/images/star.svg'
                 width={15}
               />
-              <span>{foilCount}</span>
+              <span className='font-bold'>{foilCount}</span>
             </div>
           </div>
         ) : null}
